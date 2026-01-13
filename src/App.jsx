@@ -176,7 +176,7 @@ function TerminalApp() {
                                         <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Binance_Cloud_Link: ACTIVE</span>
                                     </div>
                                     <div className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10">
-                                        <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Engine: Antigravity-v3</span>
+                                        <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Engine: Quantum-v3</span>
                                     </div>
                                 </div>
 
