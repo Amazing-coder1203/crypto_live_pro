@@ -48,7 +48,7 @@ export default function LandingPage({ onExplore }) {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 w-full max-w-7xl pb-20"
+                className="relative z-10 flex-1 flex flex-col items-center justify-center px-10 md:px-20 lg:px-32 w-full max-w-7xl pb-32"
             >
                 {/* Badge */}
                 <motion.div

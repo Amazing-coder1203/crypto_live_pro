@@ -108,54 +108,55 @@ function App() {
                         </header>
 
                         {/* Scrollable Workspace */}
-                        <main className="flex-1 overflow-y-auto overflow-x-hidden p-8 lg:p-12 custom-scrollbar">
-                            <div className="max-w-[1800px] mx-auto space-y-12">
+                        <main className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar bg-[#030305]">
+                            {/* Centralizing Wrapper with significant horizontal breathing room */}
+                            <div className="w-full h-full flex flex-col items-center">
+                                <div className="w-full max-w-[1400px] px-8 md:px-12 lg:px-20 py-16 md:py-24 space-y-12 lg:space-y-16">
 
-                                <StatsHeader stats={stats} loading={statsLoading} symbolInfo={symbolInfo} />
+                                    <StatsHeader stats={stats} loading={statsLoading} symbolInfo={symbolInfo} />
 
-                                <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
-                                    <div className="xl:col-span-12">
-                                        <PriceDisplay
-                                            price={price}
-                                            priceDirection={priceDirection}
-                                            symbolInfo={symbolInfo}
-                                            stats={stats}
-                                        />
-                                    </div>
+                                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 lg:gap-16">
+                                        <div className="xl:col-span-12">
+                                            <PriceDisplay
+                                                price={price}
+                                                priceDirection={priceDirection}
+                                                symbolInfo={symbolInfo}
+                                                stats={stats}
+                                            />
+                                        </div>
 
-                                    <div className="xl:col-span-9 space-y-10">
-                                        <PriceChart
-                                            historicalData={historicalData}
-                                            liveData={priceHistory}
-                                            loading={historyLoading}
-                                        />
+                                        <div className="xl:col-span-8 space-y-12 lg:space-y-16">
+                                            <PriceChart
+                                                historicalData={historicalData}
+                                                liveData={priceHistory}
+                                                loading={historyLoading}
+                                            />
 
-                                        {/* Compact layout for mobile info */}
-                                        <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-10">
+                                                <OrderBook data={orderBookData} />
+                                                <TradeStream trades={trades} />
+                                            </div>
+                                        </div>
+
+                                        <div className="hidden xl:flex xl:col-span-4 flex-col gap-12 lg:gap-16">
+                                            <PortfolioSim portfolio={portfolio} symbolInfo={symbolInfo} />
                                             <OrderBook data={orderBookData} />
                                             <TradeStream trades={trades} />
                                         </div>
                                     </div>
 
-                                    {/* Desktop Right Column */}
-                                    <div className="hidden xl:flex xl:col-span-3 flex-col gap-10">
-                                        <PortfolioSim portfolio={portfolio} symbolInfo={symbolInfo} />
-                                        <OrderBook data={orderBookData} />
-                                        <TradeStream trades={trades} />
-                                    </div>
+                                    <footer className="pt-24 pb-16 border-t border-white/5 opacity-50 flex flex-col md:flex-row items-center justify-between gap-10">
+                                        <div className="flex items-center gap-4 text-[10px] font-black tracking-[0.3em] text-gray-500 uppercase">
+                                            <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.6)]" />
+                                            CONNECTION_ENCRYPTED_v3
+                                        </div>
+                                        <div className="flex flex-wrap justify-center gap-10">
+                                            <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Latency: 28ms</span>
+                                            <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Binance Cloud API v4</span>
+                                            <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">© 2026 CryptoLive Pro</span>
+                                        </div>
+                                    </footer>
                                 </div>
-
-                                {/* System Activity Footer */}
-                                <footer className="pt-20 pb-10 border-t border-white/5 opacity-50 flex flex-col md:flex-row items-center justify-between gap-6">
-                                    <div className="flex items-center gap-3 text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-                                        Encrypted connection established: 256-AES
-                                    </div>
-                                    <div className="flex items-center gap-8">
-                                        <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Global Heat: High</span>
-                                        <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Powered by Antigravity Core 3.0</span>
-                                    </div>
-                                </footer>
                             </div>
                         </main>
                     </div>
