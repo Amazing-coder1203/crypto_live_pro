@@ -1,13 +1,13 @@
-import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, BarChart3 } from 'lucide-react';
 
 export default function StatsHeader({ stats, loading, symbolInfo }) {
     if (loading || !stats) {
         return (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[...Array(4)].map((_, i) => (
-                    <div key={i} className="glass-card p-4">
-                        <div className="shimmer h-4 w-20 rounded mb-2"></div>
-                        <div className="shimmer h-8 w-32 rounded"></div>
+                    <div key={i} className="glass-card p-6">
+                        <div className="shimmer h-4 w-20 rounded mb-3"></div>
+                        <div className="shimmer h-10 w-40 rounded"></div>
                     </div>
                 ))}
             </div>
@@ -45,18 +45,20 @@ export default function StatsHeader({ stats, loading, symbolInfo }) {
     ];
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {statItems.map((item, index) => (
                 <div
                     key={index}
-                    className={`glass-card p-4 transition-all duration-300 hover:scale-[1.02] hover:border-white/20 ${item.highlight ? (isPositive ? 'glow-green' : 'glow-red') : ''
+                    className={`glass-card p-6 transition-all duration-500 hover:scale-[1.05] hover:border-white/30 group ${item.highlight ? (isPositive ? 'glow-green' : 'glow-red') : ''
                         }`}
                 >
-                    <div className="flex items-center gap-2 mb-2">
-                        <item.icon className={`w-4 h-4 ${item.color}`} />
-                        <span className="text-sm text-gray-400">{item.label}</span>
+                    <div className="flex items-center gap-3 mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
+                        <div className={`p-2 rounded-lg bg-white/5 ${item.color}`}>
+                            <item.icon className="w-5 h-5" />
+                        </div>
+                        <span className="text-xs font-black uppercase tracking-widest text-gray-400">{item.label}</span>
                     </div>
-                    <p className={`text-xl font-semibold font-mono ${item.color}`}>
+                    <p className={`text-2xl font-black font-mono tracking-tight ${item.color}`}>
                         {item.value}
                     </p>
                 </div>
