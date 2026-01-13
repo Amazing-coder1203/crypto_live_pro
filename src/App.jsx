@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Activity, LayoutDashboard, Wallet, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Activity, LayoutDashboard, Wallet, LogOut, Terminal, Layers, Search, Bell } from 'lucide-react';
 import { useWebSocket, use24hStats, useHistoricalData, useOrderBook } from './hooks/useCrypto';
 import { usePortfolio } from './hooks/usePortfolio';
 import CryptoSelector from './components/CryptoSelector';
@@ -41,7 +41,7 @@ function App() {
                     key="landing"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                    exit={{ opacity: 0, scale: 1.05, filter: "blur(15px)" }}
                     transition={{ duration: 0.8 }}
                 >
                     <LandingPage onExplore={() => setShowDashboard(true)} />
@@ -49,58 +49,56 @@ function App() {
             ) : (
                 <motion.div
                     key="dashboard"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="flex flex-col items-center w-full min-h-screen bg-dark-900"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex min-h-screen bg-[#030305]"
                 >
-                    <div className="w-full max-w-[1700px] px-6 py-10 md:px-12 space-y-8 md:space-y-12">
+                    {/* Sidebar Navigation */}
+                    <aside className="hidden lg:flex flex-col w-20 border-r border-white/5 items-center py-8 gap-10 bg-[#050508]">
+                        <div className="p-1 rounded-xl bg-white/5 border border-white/10 hover:scale-110 transition-transform cursor-pointer" onClick={() => setShowDashboard(false)}>
+                            <img src="./Crypto_live_pro.png" alt="Logo" className="w-10 h-10 object-cover rounded-lg" />
+                        </div>
+                        <div className="flex flex-col gap-6">
+                            {[LayoutDashboard, Terminal, Layers, Wallet, Bell].map((Icon, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => idx === 0 ? setActiveTab('market') : idx === 3 ? setActiveTab('trading') : null}
+                                    className={`p-3 rounded-xl transition-all ${idx === 0 && activeTab === 'market' ? 'bg-primary/20 text-primary' : idx === 3 && activeTab === 'trading' ? 'bg-primary/20 text-primary' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
+                                >
+                                    <Icon className="w-6 h-6" />
+                                </button>
+                            ))}
+                        </div>
+                        <div className="mt-auto">
+                            <button
+                                onClick={() => setShowDashboard(false)}
+                                className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
+                            >
+                                <LogOut className="w-6 h-6" />
+                            </button>
+                        </div>
+                    </aside>
 
-                        {/* Top Navigation / Header */}
-                        <header className="flex flex-col lg:flex-row items-center justify-between gap-8 pb-8 border-b border-white/5">
-                            <div className="flex flex-col md:flex-row items-center gap-8">
-                                <div className="flex items-center gap-5">
-                                    <div className="relative group cursor-pointer" onClick={() => setShowDashboard(false)}>
-                                        <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
-                                        <div className="relative p-1 rounded-2xl bg-dark-900 border border-white/10 shadow-2xl overflow-hidden transition-transform group-hover:scale-110">
-                                            <img
-                                                src="./Crypto_live_pro.png"
-                                                alt="Logo"
-                                                className="w-14 h-14 object-cover rounded-xl"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h1 className="text-3xl font-black bg-gradient-to-br from-white to-white/50 bg-clip-text text-transparent tracking-tighter hover:to-white transition-all cursor-default">
-                                            CRYPTOLIVE<span className="text-green-400">.PRO</span>
-                                        </h1>
-                                        <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold tracking-widest uppercase">
-                                            <div className="w-2 h-2 rounded-full bg-green-500 pulse-live"></div>
-                                            Terminal Active
-                                        </div>
-                                    </div>
+                    <div className="flex-1 flex flex-col h-screen overflow-hidden">
+                        {/* Top Bar */}
+                        <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#050508]/80 backdrop-blur-xl z-50">
+                            <div className="flex items-center gap-6">
+                                <div className="lg:hidden p-1 rounded-lg bg-white/5 mr-2">
+                                    <img src="./Crypto_live_pro.png" alt="Logo" className="w-8 h-8 rounded-lg" />
                                 </div>
-
-                                {/* Tab Switcher */}
-                                <nav className="flex items-center bg-white/5 p-1.5 rounded-2xl border border-white/10">
-                                    <button
-                                        onClick={() => setActiveTab('market')}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'market' ? 'bg-white/10 text-white shadow-2xl' : 'text-gray-500 hover:text-gray-300'}`}
-                                    >
-                                        <LayoutDashboard className="w-4 h-4" />
-                                        Market
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('trading')}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'trading' ? 'bg-white/10 text-white shadow-2xl' : 'text-gray-500 hover:text-gray-300'}`}
-                                    >
-                                        <Wallet className="w-4 h-4" />
-                                        Trading
-                                    </button>
-                                </nav>
+                                <div>
+                                    <h1 className="text-xl font-black tracking-tighter text-white">
+                                        TERMINAL<span className="text-green-400">.DASH</span>
+                                    </h1>
+                                    <p className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">System Status: Optimal</p>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-6 w-full lg:w-auto">
+                            <div className="flex items-center gap-6">
+                                <div className="hidden md:flex items-center bg-white/5 h-12 px-4 rounded-xl border border-white/10 gap-3 min-w-[300px]">
+                                    <Search className="w-4 h-4 text-gray-500" />
+                                    <input type="text" placeholder="Search markets or commands..." className="bg-transparent border-none text-sm focus:ring-0 text-white w-full placeholder:text-gray-600" />
+                                </div>
                                 <CryptoSelector
                                     selectedSymbol={selectedSymbol}
                                     onSymbolChange={setSelectedSymbol}
@@ -109,65 +107,57 @@ function App() {
                             </div>
                         </header>
 
-                        {/* Content Spacing improved with Gap-10 */}
-                        <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
+                        {/* Scrollable Workspace */}
+                        <main className="flex-1 overflow-y-auto overflow-x-hidden p-8 lg:p-12 custom-scrollbar">
+                            <div className="max-w-[1800px] mx-auto space-y-12">
 
-                            {/* Main Analysis Area (Left & Middle) */}
-                            <div className="xl:col-span-9 space-y-10">
-                                {/* Visual hierarchy boost for stats */}
                                 <StatsHeader stats={stats} loading={statsLoading} symbolInfo={symbolInfo} />
 
-                                <PriceDisplay
-                                    price={price}
-                                    priceDirection={priceDirection}
-                                    symbolInfo={symbolInfo}
-                                    stats={stats}
-                                />
+                                <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
+                                    <div className="xl:col-span-12">
+                                        <PriceDisplay
+                                            price={price}
+                                            priceDirection={priceDirection}
+                                            symbolInfo={symbolInfo}
+                                            stats={stats}
+                                        />
+                                    </div>
 
-                                <div className="relative group">
-                                    <div className="absolute -inset-0.5 bg-gradient-to-b from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
-                                    <PriceChart
-                                        historicalData={historicalData}
-                                        liveData={priceHistory}
-                                        loading={historyLoading}
-                                    />
+                                    <div className="xl:col-span-9 space-y-10">
+                                        <PriceChart
+                                            historicalData={historicalData}
+                                            liveData={priceHistory}
+                                            loading={historyLoading}
+                                        />
+
+                                        {/* Compact layout for mobile info */}
+                                        <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            <OrderBook data={orderBookData} />
+                                            <TradeStream trades={trades} />
+                                        </div>
+                                    </div>
+
+                                    {/* Desktop Right Column */}
+                                    <div className="hidden xl:flex xl:col-span-3 flex-col gap-10">
+                                        <PortfolioSim portfolio={portfolio} symbolInfo={symbolInfo} />
+                                        <OrderBook data={orderBookData} />
+                                        <TradeStream trades={trades} />
+                                    </div>
                                 </div>
 
-                                {/* Mobile/Tablet Adaptive Panels */}
-                                <div className="xl:hidden grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <OrderBook data={orderBookData} />
-                                    <TradeStream trades={trades} />
-                                </div>
-                                <div className="xl:hidden">
-                                    <PortfolioSim portfolio={portfolio} symbolInfo={symbolInfo} />
-                                </div>
+                                {/* System Activity Footer */}
+                                <footer className="pt-20 pb-10 border-t border-white/5 opacity-50 flex flex-col md:flex-row items-center justify-between gap-6">
+                                    <div className="flex items-center gap-3 text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+                                        Encrypted connection established: 256-AES
+                                    </div>
+                                    <div className="flex items-center gap-8">
+                                        <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Global Heat: High</span>
+                                        <span className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Powered by Antigravity Core 3.0</span>
+                                    </div>
+                                </footer>
                             </div>
-
-                            {/* Sidebar (Desktop) */}
-                            <div className="hidden xl:flex xl:col-span-3 flex-col gap-8">
-                                <div className="sticky top-10 space-y-8">
-                                    <PortfolioSim portfolio={portfolio} symbolInfo={symbolInfo} />
-                                    <OrderBook data={orderBookData} />
-                                    <TradeStream trades={trades} />
-                                </div>
-                            </div>
-
-                        </div>
-
-                        {/* Footer */}
-                        <footer className="pt-20 pb-12 border-t border-white/5 mt-10">
-                            <div className="flex flex-col md:flex-row items-center justify-between gap-10 opacity-40 hover:opacity-100 transition-opacity">
-                                <div className="flex items-center gap-3 text-gray-400 text-xs font-mono tracking-wider">
-                                    <Activity className="w-5 h-5 text-green-400 pulse-live" />
-                                    <span>SUBSYSTEM_NODE_ACTIVE // BINANCE_STREAM_v4</span>
-                                </div>
-                                <div className="flex flex-wrap justify-center gap-8 text-[11px] uppercase font-black tracking-[0.2em] text-gray-500">
-                                    <span className="flex items-center gap-2"><div className="w-1 h-1 bg-green-500"></div> Latency: 42ms</span>
-                                    <span className="flex items-center gap-2"><div className="w-1 h-1 bg-green-500"></div> Engine: Vite/React</span>
-                                    <span className="flex items-center gap-2"><div className="w-1 h-1 bg-white"></div> CryptoLive Pro Terminal</span>
-                                </div>
-                            </div>
-                        </footer>
+                        </main>
                     </div>
                 </motion.div>
             )}
