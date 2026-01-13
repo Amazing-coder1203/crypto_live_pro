@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* Custom Design System */
+:root {
+  /* Colors */
+  --color-dark-900: #0a0a0f;
+  --color-dark-800: #12121a;
+  --color-dark-700: #1a1a25;
+  --color-dark-600: #252532;
+
+  --color-accent-green: #00ff88;
+  --color-accent-red: #ff4757;
+  --color-accent-blue: #3b82f6;
+  --color-accent-purple: #8b5cf6;
+  --color-accent-orange: #f59e0b;
+
+  /* Gradients */
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-dark-900);
+  color: white;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    var(--color-dark-900);
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--gradient-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Price Flash Animations */
+@keyframes flash-green {
+
+  0%,
+  100% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: rgba(0, 255, 136, 0.3);
+  }
+}
+
+@keyframes flash-red {
+
+  0%,
+  100% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: rgba(255, 71, 87, 0.3);
+  }
+}
+
+.flash-up {
+  animation: flash-green 0.5s ease-out;
+}
+
+.flash-down {
+  animation: flash-red 0.5s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-600);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dark-700);
+}
+
+/* Shimmer Loading Effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg,
+      var(--color-dark-700) 25%,
+      var(--color-dark-600) 50%,
+      var(--color-dark-700) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Glow Effects */
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.1);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 71, 87, 0.3), 0 0 40px rgba(255, 71, 87, 0.1);
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse-live {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Chart Container */
+.chart-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-dark-800);
+}
