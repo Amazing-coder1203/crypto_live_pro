@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import {
     Activity, LayoutDashboard, Wallet, LogOut, Terminal,
     Layers, Search, Bell, Menu, X, Settings
@@ -245,7 +245,7 @@ function TerminalApp() {
 
 function App() {
     return (
-        <Router basename="/crypto_live_pro">
+        <Router>
             <Routes>
                 <Route path="/landing" element={<LandingPage onExplore={() => { }} />} />
                 <Route path="/dashboard" element={<TerminalApp />} />
