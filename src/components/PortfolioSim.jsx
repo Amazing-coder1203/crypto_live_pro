@@ -38,8 +38,9 @@ export default function PortfolioSim({ portfolio, symbolInfo }) {
                 </div>
 
                 {/* PNL Stats */}
-                <div className={`p-6 rounded-2xl border transition-all duration-500 ${isPositive ? 'bg-green-500/10 border-green-500/20 glow-green' : 'bg-red-500/10 border-red-500/20 glow-red'}`}>
+                <div className={`p-8 rounded-2xl border transition-all duration-500 ${isPositive ? 'bg-green-500/10 border-green-500/20 glow-green' : 'bg-red-500/10 border-red-500/20 glow-red'}`}>
                     <div className="flex justify-between items-center">
+                        <br />
                         <div className="space-y-1">
                             <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Unrealized Performance</p>
                             <div className="flex items-center gap-4">
@@ -60,39 +61,45 @@ export default function PortfolioSim({ portfolio, symbolInfo }) {
                         <span className="text-xs font-black font-mono text-gray-400">${positionValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
                     </div>
                 </div>
-
+                <br />
                 {/* Action Controls */}
                 <div className="grid grid-cols-2 gap-4">
                     <button
                         onClick={() => buy(1000)}
-                        className="flex flex-col items-center justify-center gap-1 py-4 rounded-2xl bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 transition-all hover:scale-[1.02] active:scale-95 group"
+                        className="flex flex-col items-center justify-center gap-2 py-6 rounded-2xl bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 transition-all hover:scale-[1.02] active:scale-95 group"
                     >
-                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        <span className="text-xs font-black uppercase tracking-widest">Buy $1k</span>
+                        <ArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <span className="text-sm font-black uppercase tracking-widest">Buy $1k</span>
                     </button>
                     <button
                         onClick={() => sell(1)}
-                        className="flex flex-col items-center justify-center gap-1 py-4 rounded-2xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 transition-all hover:scale-[1.02] active:scale-95 group"
+                        className="flex flex-col items-center justify-center gap-2 py-6 rounded-2xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 transition-all hover:scale-[1.02] active:scale-95 group"
                     >
-                        <ArrowDownRight className="w-5 h-5 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
-                        <span className="text-xs font-black uppercase tracking-widest">Sell All</span>
+                        <ArrowDownRight className="w-6 h-6 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
+                        <span className="text-sm font-black uppercase tracking-widest">Sell All</span>
                     </button>
                 </div>
-
+                <br />
                 <div className="grid grid-cols-2 gap-4">
                     <button
                         onClick={() => buy(10000)}
-                        className="py-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] transition-all"
+                        className="py-10 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-400 text-sm font-black uppercase tracking-[0.2em] transition-all"
                     >
-                        Deploy $10k
+                        Deploy
+                        <br />
+                        $10k
                     </button>
                     <button
                         onClick={() => sell(0.5)}
-                        className="py-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] transition-all"
+                        className="py-10 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-400 text-sm font-black uppercase tracking-[0.2em] transition-all"
                     >
-                        Liquidate 50%
+                        Liquidate
+                        <br />
+                        50%
                     </button>
+
                 </div>
+                <br />
             </div>
 
             <div className="mt-auto p-4 bg-white/[0.03] flex justify-between items-center text-[10px] font-black text-gray-600 uppercase tracking-widest px-8">

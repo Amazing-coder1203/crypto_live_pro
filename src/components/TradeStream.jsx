@@ -5,7 +5,7 @@ const WHALE_THRESHOLD = 50000;
 
 export default function TradeStream({ trades }) {
     return (
-        <div className="glass-card flex flex-col h-[500px] overflow-hidden shadow-2xl transition-all hover:border-white/20">
+        <div className="glass-card flex flex-col min-h-[300px] max-h-[600px] overflow-hidden shadow-2xl transition-all hover:border-white/20">
             <div className="p-5 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                 <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-blue-500/10">

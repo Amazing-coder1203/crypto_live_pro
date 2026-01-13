@@ -29,7 +29,7 @@ export default function OrderBook({ data }) {
     };
 
     return (
-        <div className="glass-card flex flex-col h-[500px] overflow-hidden shadow-2xl transition-all hover:border-white/20">
+        <div className="glass-card flex flex-col min-h-[300px] max-h-[600px] overflow-hidden shadow-2xl transition-all hover:border-white/20">
             <div className="p-5 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                 <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Market Depth</h3>
                 <span className="text-[9px] bg-white/10 px-2 py-1 rounded-full text-gray-400 font-bold uppercase tracking-wider">Depth 20</span>
