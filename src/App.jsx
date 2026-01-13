@@ -37,13 +37,22 @@ function App() {
                 {/* Top Navigation / Header */}
                 <header className="flex flex-col lg:flex-row items-center justify-between gap-6 pb-4 border-b border-white/5">
                     <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2.5 rounded-xl bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-white/10 shadow-lg">
-                                <Zap className="w-7 h-7 text-green-400" />
+                        <div className="flex items-center gap-4">
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                                <div className="relative p-1 rounded-2xl bg-dark-900 border border-white/10 shadow-2xl overflow-hidden">
+                                    <img
+                                        src="./Crypto_live_pro.png"
+                                        alt="CryptoLive Pro Logo"
+                                        className="w-12 h-12 object-cover rounded-xl"
+                                    />
+                                </div>
                             </div>
-                            <h1 className="text-2xl font-black bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent tracking-tighter">
-                                CRYPTOLIVE.PRO
-                            </h1>
+                            <div>
+                                <h1 className="text-2xl font-black bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent tracking-tighter">
+                                    CRYPTOLIVE.PRO
+                                </h1>
+                            </div>
                         </div>
 
                         {/* Desktop Tab Switcher */}
